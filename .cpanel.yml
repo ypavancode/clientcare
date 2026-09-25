@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/wngpsjtt9rq2/public_html/clientcare/
+    - /bin/cp -R ./ $DEPLOYPATH
