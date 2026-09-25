@@ -133,7 +133,7 @@ $isLoginPage = str_contains(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''
 <div class="auth-wrap">
   <aside class="auth-aside">
     <?php if (!empty($authAside)): ?><?= $authAside ?><?php else: ?>
-    <div class="auth-eyebrow">Monitor &nbsp;•&nbsp; Protect &nbsp;•&nbsp; Grow</div>
+    <div class="auth-eyebrow">Harish Monitor &nbsp;•&nbsp; Protect &nbsp;•&nbsp; Grow</div>
     <h2>Every website, page and form – <em>watched around the clock.</em></h2>
     <p class="lead">Uptime, page health, form testing, SSL, domain and hosting expiry in one calm, fast dashboard. Alerts reach the right people before your clients notice.</p>
     <div class="auth-features">
