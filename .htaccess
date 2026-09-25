@@ -1,0 +1,74 @@
+Options -Indexes
+DirectoryIndex index.php
+DirectorySlash Off
+
+# ---------- Clean URLs: every request goes through the front controller (index.php); assets, uploads and cron scripts are served directly ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{ENV:REDIRECT_STATUS} ^$
+  RewriteCond %{REQUEST_URI} !/(assets|uploads|cron)/ [NC]
+  RewriteCond %{REQUEST_FILENAME} !-f [OR]
+  RewriteCond %{REQUEST_URI} \.php$ [NC]
+  RewriteRule ^ index.php [L]
+</IfModule>
+
+# ---------- Security headers ----------
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), usb=()"
+  Header set Content-Security-Policy "frame-ancestors 'self'"
+  # HSTS only once the site is served over HTTPS (Apache sets the HTTPS env on TLS connections)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+  Header unset X-Powered-By
+  Header unset ETag
+</IfModule>
+FileETag None
+
+# ---------- Compression (gzip / brotli) – AddOutputFilterByType needs mod_filter (standard on cPanel) ----------
+<IfModule mod_filter.c>
+  <IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+  </IfModule>
+  <IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml font/ttf font/otf
+    <IfModule mod_setenvif.c>
+      SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp|woff2?)$ no-gzip
+    </IfModule>
+  </IfModule>
+</IfModule>
+
+# ---------- Browser caching for static assets (URLs carry ?v=filemtime so long caching is safe) ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|svg|png|jpe?g|webp|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.php$">
+    Header setifempty Cache-Control "no-store, no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType image/svg+xml .svg
+</IfModule>
+
+# ---------- Block direct web access to internal folders (works at domain root or in a sub-folder) ----------
+RedirectMatch 404 ^/(.*/)?(vendor|database|includes|config|logs|cache)/
+
+<FilesMatch "^(\.htaccess|\.env|composer\.(json|lock))$">
+  Require all denied
+</FilesMatch>

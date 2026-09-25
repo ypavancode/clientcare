@@ -1,0 +1,322 @@
+<title>Outline Monitor Product Map</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f6f5f1; --bg-2: #ffffff; --surface: #ffffff; --surface-2: #f0efe9; --line: #e2dfd6; --line-strong: #cfcbbf;
+    --ink: #151412; --text: #2a2926; --muted: #6f6b62; --muted-2: #9a958a;
+    --gold: #d99400; --gold-ink: #7a5200; --gold-soft: rgba(217, 148, 0, .12); --gold-line: rgba(217, 148, 0, .38);
+    --ok: #1f8f4c; --ok-soft: rgba(31, 143, 76, .12); --bad: #c8342b; --bad-soft: rgba(200, 52, 43, .12); --warn: #d2691e; --warn-soft: rgba(210, 105, 30, .12); --info: #2f6fcf; --info-soft: rgba(47, 111, 207, .12);
+    --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --radius: 14px; --radius-sm: 8px; --shadow: 0 1px 2px rgba(20, 18, 10, .06), 0 10px 30px -22px rgba(20, 18, 10, .35);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0b0b0b; --bg-2: #0f0f0f; --surface: #151515; --surface-2: #1c1c1c; --line: rgba(255, 255, 255, .09); --line-strong: rgba(255, 255, 255, .16);
+      --ink: #ffffff; --text: #e6e6e6; --muted: #a09d96; --muted-2: #6f6c66;
+      --gold: #FCAF17; --gold-ink: #FCAF17; --gold-soft: rgba(252, 175, 23, .14); --gold-line: rgba(252, 175, 23, .38);
+      --ok: #4ade80; --ok-soft: rgba(34, 197, 94, .14); --bad: #f87171; --bad-soft: rgba(239, 68, 68, .14); --warn: #fb923c; --warn-soft: rgba(249, 115, 22, .14); --info: #60a5fa; --info-soft: rgba(59, 130, 246, .14);
+      --shadow: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 12px 30px -22px rgba(0, 0, 0, .9);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0b0b0b; --bg-2: #0f0f0f; --surface: #151515; --surface-2: #1c1c1c; --line: rgba(255, 255, 255, .09); --line-strong: rgba(255, 255, 255, .16);
+    --ink: #ffffff; --text: #e6e6e6; --muted: #a09d96; --muted-2: #6f6c66;
+    --gold: #FCAF17; --gold-ink: #FCAF17; --gold-soft: rgba(252, 175, 23, .14); --gold-line: rgba(252, 175, 23, .38);
+    --ok: #4ade80; --ok-soft: rgba(34, 197, 94, .14); --bad: #f87171; --bad-soft: rgba(239, 68, 68, .14); --warn: #fb923c; --warn-soft: rgba(249, 115, 22, .14); --info: #60a5fa; --info-soft: rgba(59, 130, 246, .14);
+    --shadow: 0 1px 0 rgba(255, 255, 255, .03) inset, 0 12px 30px -22px rgba(0, 0, 0, .9);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-block: 28px 56px; padding-inline: 20px; }
+  h1, h2, h3, h4 { color: var(--ink); margin: 0; line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; }
+  h1 { font-size: clamp(1.7rem, 1.2rem + 2vw, 2.6rem); font-weight: 800; }
+  h2 { font-size: clamp(1.15rem, 1rem + .6vw, 1.5rem); font-weight: 700; }
+  h3 { font-size: 1rem; font-weight: 700; }
+  p { margin: 0; }
+  a { color: var(--gold-ink); text-decoration: none; } a:hover { text-decoration: underline; }
+  .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-ink); }
+  .lede { max-width: 62ch; color: var(--muted); font-size: 1.02rem; }
+  code, .route { font-family: var(--mono); font-size: .78rem; }
+  .route { display: inline-block; padding: 1px 7px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--line); color: var(--muted); white-space: nowrap; vertical-align: middle; }
+
+  /* header */
+  .hero { display: grid; gap: 18px; grid-template-columns: minmax(0, 1fr) auto; align-items: end; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+  .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; color: var(--ink); font-size: 1rem; margin-bottom: 10px; }
+  .brand .mark { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: var(--gold); display: inline-grid; place-items: center; font-weight: 800; }
+  :root:not([data-theme="light"]) .brand .mark { background: #FCAF17; color: #111; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .brand .mark { background: #151412; color: #FCAF17; } }
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 8px; }
+  .fact { padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); min-width: 0; }
+  .fact b { display: block; color: var(--ink); font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+  .fact span { font-size: .78rem; color: var(--muted); }
+
+  /* sticky nav */
+  .nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; gap: 6px; flex-wrap: wrap; padding-block: 10px; margin-block: 0 26px; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .nav a { font-size: .8rem; font-weight: 600; color: var(--text); padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+  .nav a:hover { border-color: var(--gold-line); text-decoration: none; color: var(--ink); }
+  section { padding-block: 26px 8px; }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; margin-bottom: 16px; }
+  .sec-head p { color: var(--muted); max-width: 70ch; }
+
+  /* journey stepper */
+  .journey { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; counter-reset: step; }
+  .step { position: relative; padding: 12px 12px 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); min-width: 0; }
+  .step::before { counter-increment: step; content: counter(step, decimal-leading-zero); font-family: var(--mono); font-size: .72rem; color: var(--gold-ink); font-weight: 500; display: block; margin-bottom: 6px; }
+  .step b { display: block; color: var(--ink); font-size: .9rem; }
+  .step small { display: block; color: var(--muted); font-size: .76rem; margin-top: 3px; }
+  .step.gold { border-color: var(--gold-line); background: var(--gold-soft); }
+
+  /* sitemap tree */
+  .areas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; align-items: start; }
+  .area { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; min-width: 0; }
+  .area.wide { grid-column: 1 / -1; }
+  .area-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+  .area-head h3 { font-size: .95rem; }
+  .area-head .who { font-size: .72rem; color: var(--muted); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  .tree { list-style: none; margin: 0; padding: 8px 10px 10px; }
+  .tree li { position: relative; padding: 6px 6px 6px 18px; border-radius: 6px; }
+  .tree li::before { content: ""; position: absolute; left: 6px; top: 15px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+  .tree li:hover { background: var(--surface-2); }
+  .tree .name { color: var(--ink); font-weight: 600; font-size: .9rem; }
+  .tree .what { display: block; color: var(--muted); font-size: .8rem; margin-top: 1px; }
+  .tree .routes { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .tree ul { list-style: none; margin: 4px 0 0; padding: 0 0 0 10px; border-left: 1px dashed var(--line-strong); }
+  .tree ul li::before { background: var(--muted-2); width: 5px; height: 5px; top: 16px; }
+  .cols-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0 16px; }
+
+  /* mechanism cards */
+  .mech { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 16px 18px; min-width: 0; }
+  .card h3 { margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .card p { color: var(--muted); font-size: .9rem; }
+  .card ul { margin: 8px 0 0; padding-left: 18px; color: var(--text); font-size: .88rem; }
+  .card li { margin: 3px 0; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .tag.gold { background: var(--gold-soft); color: var(--gold-ink); border: 1px solid var(--gold-line); }
+  /* alert state machine */
+  .fsm { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; font-size: .78rem; font-weight: 600; }
+  .fsm .st { padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); }
+  .fsm .st.ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; } .fsm .st.bad { background: var(--bad-soft); color: var(--bad); border-color: transparent; } .fsm .st.mail { background: var(--gold-soft); color: var(--gold-ink); border-color: var(--gold-line); }
+  .fsm .arrow { color: var(--muted-2); }
+
+  /* tables */
+  .tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; min-width: 640px; }
+  th, td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+  th { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; background: var(--surface-2); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
+  td.num { font-variant-numeric: tabular-nums; }
+  .yes { color: var(--ok); font-weight: 700; } .no { color: var(--muted-2); }
+
+  .limits { border-left: 3px solid var(--gold); padding: 12px 16px; background: var(--surface); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: var(--muted); font-size: .9rem; }
+  .limits b { color: var(--ink); }
+  footer { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted-2); font-size: .78rem; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+  @media (max-width: 720px) { .hero { grid-template-columns: 1fr; } .facts { grid-template-columns: repeat(2, 1fr); } .area.wide .cols-2 { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: no-preference) { .area, .card, .step { transition: border-color .18s ease, transform .18s ease; } .area:hover, .card:hover { border-color: var(--gold-line); } }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="brand"><span class="mark">O</span>Outline Monitor</div>
+      <div class="eyebrow">Product map</div>
+      <h1 style="margin:6px 0 10px">Everything the platform does, page by page</h1>
+      <p class="lede">Outline Monitor watches a client's websites around the clock: every page, every enquiry form, every SSL certificate and every domain or hosting expiry date. It sends one alert when something breaks and one when it recovers, and it measures website traffic with a one-line tracking script. Each client works in its own workspace; the platform team runs everything from a separate Super Admin console.</p>
+    </div>
+    <div class="facts" aria-label="Key facts">
+      <div class="fact"><b>5</b><span>subscription plans, 5 to 60-minute check intervals</span></div>
+      <div class="fact"><b>6</b><span>monitor types: website, page, form, SSL, domain, hosting</span></div>
+      <div class="fact"><b>1 + 1</b><span>alerts per problem: one failure, one recovery</span></div>
+      <div class="fact"><b>0</b><span>cron jobs or open browsers needed to run it</span></div>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="Sections">
+    <a href="#journey">Client journey</a><a href="#sitemap">Sitemap</a><a href="#how">How it works</a><a href="#roles">Roles</a><a href="#plans">Plans</a><a href="#limits">What it does not do</a>
+  </nav>
+
+  <section id="journey">
+    <div class="sec-head"><h2>The client journey</h2><p>The order in which a new client meets the product, from sign-up to managing the subscription. Each step is a real screen or automatic process.</p></div>
+    <ol class="journey" style="list-style:none;margin:0;padding:0">
+      <li class="step"><b>Client registration</b><small>Company, owner, plan choice · creates the workspace</small></li>
+      <li class="step"><b>Email verification</b><small>Link sent instantly; resend, expiry and reuse handled</small></li>
+      <li class="step gold"><b>Subscription</b><small>Free, 14-day trial or paid plan sets limits and intervals</small></li>
+      <li class="step"><b>Website setup</b><small>Add site, technology, contact details; pages discovered</small></li>
+      <li class="step"><b>Monitoring</b><small>Homepage + every page checked at the plan interval</small></li>
+      <li class="step"><b>Form monitoring</b><small>Forms found and test-submitted; CAPTCHA recognised</small></li>
+      <li class="step"><b>SSL / domain / hosting</b><small>Certificate checks, expiry reminders</small></li>
+      <li class="step gold"><b>CDN analytics install</b><small>Copy the tracking code, paste before &lt;/head&gt;</small></li>
+      <li class="step"><b>Visitor tracking</b><small>Page views, sessions, sources, devices</small></li>
+      <li class="step"><b>Location analytics</b><small>Country, region, city (approximate, IP-based)</small></li>
+      <li class="step"><b>Alerts</b><small>One failure email, silence while failing, one recovery</small></li>
+      <li class="step"><b>Plan-based execution</b><small>Every client at its own cadence, server-side</small></li>
+      <li class="step"><b>Usage &amp; retention</b><small>Limits enforced; history kept for the plan period</small></li>
+      <li class="step"><b>Reports</b><small>Uptime, incidents, forms, SSL, domains, emails</small></li>
+      <li class="step"><b>Subscription management</b><small>Upgrade, downgrade, trial, renewal</small></li>
+    </ol>
+  </section>
+
+  <section id="sitemap">
+    <div class="sec-head"><h2>Sitemap</h2><p>Five areas. Every entry names the screen, what it is for, and its address in the application.</p></div>
+    <div class="areas">
+
+      <article class="area">
+        <div class="area-head"><h3>Public</h3><span class="who">anyone</span></div>
+        <ul class="tree">
+          <li><span class="name">Landing page</span><span class="what">What the product does, who it is for</span><div class="routes"><span class="route">/</span></div></li>
+          <li><span class="name">Pricing</span><span class="what">Plan comparison read from the live plan table</span><div class="routes"><span class="route">/pricing</span></div></li>
+          <li><span class="name">Contact sales · Terms · Privacy</span><div class="routes"><span class="route">/contact-sales</span><span class="route">/terms</span><span class="route">/privacy</span></div></li>
+          <li><span class="name">Public status pages</span><span class="what">Client-branded uptime page per workspace</span><div class="routes"><span class="route">/status/{workspace}</span></div></li>
+          <li><span class="name">Analytics tracker</span><span class="what">The script clients embed, and the beacon it reports to</span><div class="routes"><span class="route">/analytics/SITE-XXXXXXXX.js</span><span class="route">/collect</span></div></li>
+        </ul>
+      </article>
+
+      <article class="area">
+        <div class="area-head"><h3>Authentication</h3><span class="who">every user</span></div>
+        <ul class="tree">
+          <li><span class="name">Login · Logout</span><span class="what">Lockout after repeated failures, remember-me</span><div class="routes"><span class="route">/login</span><span class="route">/logout</span></div></li>
+          <li><span class="name">Registration</span><span class="what">Creates a workspace and its owner</span><div class="routes"><span class="route">/register</span></div></li>
+          <li><span class="name">Email verification</span><span class="what">Pending screen, resend, expired and used links</span><div class="routes"><span class="route">/verify-pending</span><span class="route">/verify</span></div></li>
+          <li><span class="name">Password reset</span><div class="routes"><span class="route">/forgot-password</span><span class="route">/reset-password</span></div></li>
+          <li><span class="name">Team invitation</span><span class="what">Invited members set a password and join</span><div class="routes"><span class="route">/accept-invite</span></div></li>
+          <li><span class="name">Profile &amp; password</span><div class="routes"><span class="route">/profile</span></div></li>
+        </ul>
+      </article>
+
+      <article class="area">
+        <div class="area-head"><h3>Integrations</h3><span class="who">developers</span></div>
+        <ul class="tree">
+          <li><span class="name">REST API v1</span><span class="what">Read keys on Professional, read/write on Business and Agency</span><div class="routes"><span class="route">/api/v1/…</span></div></li>
+          <li><span class="name">Webhooks</span><span class="what">Outgoing notifications for Business and Agency</span><div class="routes"><span class="route">/settings</span></div></li>
+          <li><span class="name">Health endpoint</span><span class="what">200 while monitoring runs, 503 when stalled</span><div class="routes"><span class="route">/cron/health-check.php</span></div></li>
+        </ul>
+      </article>
+
+      <article class="area wide">
+        <div class="area-head"><h3>Client workspace</h3><span class="who">owner · admin · manager · viewer</span></div>
+        <div class="cols-2">
+          <ul class="tree">
+            <li><span class="name">Overview dashboard</span><span class="what">Health, open incidents, monitoring engine state, usage against the plan</span><div class="routes"><span class="route">/dashboard</span></div></li>
+            <li><span class="name">Websites</span><span class="what">Everything monitored for a site</span>
+              <ul>
+                <li><span class="name">All websites · Add website</span><div class="routes"><span class="route">/websites</span><span class="route">/websites/add</span></div></li>
+                <li><span class="name">Website detail</span><span class="what">Schedule (plan, interval, last and next check), pages, forms, SSL history, uptime, activity</span><div class="routes"><span class="route">/websites/{id}</span></div></li>
+                <li><span class="name">Website health · Uptime</span><div class="routes"><span class="route">/websites/health</span><span class="route">/websites/uptime</span></div></li>
+                <li><span class="name">Page monitoring</span><span class="what">Every discovered page with its status</span><div class="routes"><span class="route">/pages</span></div></li>
+                <li><span class="name">Website analytics</span><span class="what">Tracking code, installation status, visitor reports</span><div class="routes"><span class="route">/websites/{id}/analytics</span></div></li>
+              </ul>
+            </li>
+            <li><span class="name">Forms</span>
+              <ul>
+                <li><span class="name">Form monitoring</span><span class="what">Working · CAPTCHA protected · failed · needs attention</span><div class="routes"><span class="route">/forms/monitoring</span></div></li>
+                <li><span class="name">All forms · Test history</span><div class="routes"><span class="route">/forms</span><span class="route">/forms/history</span></div></li>
+                <li><span class="name">Form discovery</span><span class="what">Forms found automatically on the site, incl. popups</span><div class="routes"><span class="route">/forms/discovery</span></div></li>
+              </ul>
+            </li>
+            <li><span class="name">SSL certificates</span><span class="what">Validity, issuer, days left, warnings</span><div class="routes"><span class="route">/ssl</span></div></li>
+            <li><span class="name">Domains · Hosting</span><span class="what">Recorded expiry dates and providers, reminder history</span><div class="routes"><span class="route">/domains</span><span class="route">/hosting</span></div></li>
+            <li><span class="name">Analytics overview</span><span class="what">All tracked websites of the workspace</span><div class="routes"><span class="route">/analytics</span></div></li>
+          </ul>
+          <ul class="tree">
+            <li><span class="name">Clients &amp; projects</span><span class="what">Client control centre, website projects, departments</span><div class="routes"><span class="route">/clients/{id}</span><span class="route">/projects</span><span class="route">/projects/departments</span></div></li>
+            <li><span class="name">Incidents</span><span class="what">Outages across websites, pages, forms and SSL with root cause</span><div class="routes"><span class="route">/incidents</span></div></li>
+            <li><span class="name">Alert history</span><span class="what">One row per problem: detected, notified, checks while failing, recovered</span><div class="routes"><span class="route">/incidents/alerts</span></div></li>
+            <li><span class="name">Alerts inbox</span><span class="what">In-app notifications</span><div class="routes"><span class="route">/alerts</span></div></li>
+            <li><span class="name">Reports</span><span class="what">Thirteen reports with CSV export (Starter plan and above)</span><div class="routes"><span class="route">/reports</span></div></li>
+            <li><span class="name">Status pages</span><span class="what">Create and brand public status pages</span><div class="routes"><span class="route">/status-pages</span></div></li>
+            <li><span class="name">Activity log</span><div class="routes"><span class="route">/activity</span></div></li>
+            <li><span class="name">Team &amp; roles</span><span class="what">Invite members, assign roles</span><div class="routes"><span class="route">/team</span></div></li>
+            <li><span class="name">Email log</span><span class="what">Every alert sent, with SMTP response and sending time</span><div class="routes"><span class="route">/emails</span></div></li>
+            <li><span class="name">Billing &amp; plan</span><span class="what">Current plan, trial, upgrade request</span><div class="routes"><span class="route">/billing</span></div></li>
+            <li><span class="name">Workspace settings</span><span class="what">Alert recipients, thresholds, API keys, webhooks</span><div class="routes"><span class="route">/settings</span></div></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="area wide">
+        <div class="area-head"><h3>Super Admin console</h3><span class="who">platform team · owner</span></div>
+        <div class="cols-2">
+          <ul class="tree">
+            <li><span class="name">Platform dashboard</span><span class="what">Clients, websites, checks, alerts, engine, maintenance switch</span><div class="routes"><span class="route">/platform</span></div></li>
+            <li><span class="name">Clients (workspaces)</span><span class="what">View, edit, suspend, restore, delete, plan, trial, subscription status, notes, view as client</span><div class="routes"><span class="route">/platform/customers</span><span class="route">/platform/customers/{id}</span></div></li>
+            <li><span class="name">Websites across all workspaces</span><span class="what">Plan interval, next check, open alerts, tracking status</span><div class="routes"><span class="route">/platform/websites</span></div></li>
+            <li><span class="name">Users &amp; access</span><div class="routes"><span class="route">/platform/users</span></div></li>
+            <li><span class="name">Plans &amp; pricing</span><span class="what">Owner only: limits, intervals, retention, analytics tiers, prices</span><div class="routes"><span class="route">/platform/plans</span></div></li>
+            <li><span class="name">Subscriptions · Usage</span><div class="routes"><span class="route">/platform/subscriptions</span><span class="route">/platform/usage</span></div></li>
+          </ul>
+          <ul class="tree">
+            <li><span class="name">Analytics overview · Audit logs</span><span class="what">Every Super Admin action is recorded</span><div class="routes"><span class="route">/platform/analytics</span><span class="route">/platform/audit</span></div></li>
+            <li><span class="name">SMTP / Email · Email templates</span><span class="what">Mail server test, delivery log, live template preview and test send</span><div class="routes"><span class="route">/platform/emails</span><span class="route">/platform/templates</span></div></li>
+            <li><span class="name">System health</span><span class="what">Execution engine, queues, workers, launch checklist</span><div class="routes"><span class="route">/platform/system</span></div></li>
+            <li><span class="name">Alert history (all workspaces)</span><span class="what">Includes mail-server and scheduler problems</span><div class="routes"><span class="route">/platform/alerts</span></div></li>
+            <li><span class="name">Platform settings</span><span class="what">General, monitoring defaults, alert defaults, maintenance mode</span><div class="routes"><span class="route">/platform/settings</span></div></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="sec-head"><h2>How it works</h2><p>The mechanisms behind the screens, in the words a client hears them explained with.</p></div>
+    <div class="mech">
+      <div class="card"><h3>Website &amp; page monitoring</h3><p>The homepage and every discovered page are requested from the server at the client's plan interval. A failure is re-tried before it counts, so a single hiccup never raises an alert.</p><ul><li>Detects timeouts, DNS errors, refused connections, HTTP 4xx / 5xx, redirect loops, SSL errors, missing expected text and parking pages</li><li>Pages come from the sitemap, the WordPress sitemap and internal links, up to the plan's page limit</li><li>Several pages failing in one scan produce one combined alert</li></ul></div>
+      <div class="card"><h3>Form monitoring</h3><p>Each form is filled in and submitted the way a visitor would, either over HTTP or in a real headless browser for popup and JavaScript forms, and the response is judged.</p><ul><li>Outcomes: working · submission failed · server error · timeout · needs attention (configuration)</li><li>reCAPTCHA, hCaptcha and Turnstile forms are reported as <b>CAPTCHA protected</b>, never faked and never marked broken</li><li>Email delivery of the test enquiry can be verified with an IMAP test mailbox</li></ul></div>
+      <div class="card"><h3>Alerts <span class="tag gold">state machine</span></h3><p>One alert when a problem starts, silence while it continues, one alert when it is resolved. Applies to websites, pages, forms, SSL, domains, hosting and the platform's own mail server.</p>
+        <div class="fsm" aria-label="Alert states"><span class="st ok">Working</span><span class="arrow">→</span><span class="st bad">Failed</span><span class="arrow">→</span><span class="st mail">Alert sent</span><span class="arrow">→</span><span class="st">Still failing · silent</span><span class="arrow">→</span><span class="st ok">Recovered</span><span class="arrow">→</span><span class="st mail">Recovery sent</span></div>
+        <ul><li>Recipients: workspace admins, the assigned staff member and, when opted in, the client contact</li><li>Every alert stays in the Alert History with downtime, notification count and the error</li></ul></div>
+      <div class="card"><h3>SSL, domains &amp; hosting</h3><p>Certificates are checked with a full TLS handshake: validity, hostname match, chain, expiry date and issuer, with warnings before expiry.</p><ul><li>Domain and hosting reminders are based on the expiry dates recorded per record, at 30 and 10 days and on expiry; a renewed date closes the reminder</li></ul></div>
+      <div class="card"><h3>Analytics &amp; the tracking script</h3><p>A single line, <code>&lt;script src="…/analytics/SITE-XXXXXXXX.js"&gt;</code>, placed before <code>&lt;/head&gt;</code>. The portal shows "Tracking active" only after the first real page view arrives.</p><ul><li>Visitors, unique visitors, sessions, page views, page-level visitors, bounce rate, time on page, live visitors</li><li>Referrers, UTM campaigns, devices, browsers, operating systems, countries, regions and cities (approximate, IP-based)</li><li>No cookies, IP addresses stored only as salted hashes, data kept for the plan's retention period</li></ul></div>
+      <div class="card"><h3>Plan-based execution, no cron</h3><p>Every website, form and certificate carries its own next-check time computed from the client's plan. The application keeps its own scheduler alive: a background worker it starts itself, a request chain inside the web server, and a watchdog on every incoming request.</p><ul><li>A 60-minute plan is checked every 60 minutes; a 5-minute plan every 5 minutes</li><li>Changing a plan re-aligns the schedule immediately; expired subscriptions stop, renewals resume</li><li>Nobody has to stay logged in and no browser tab has to be open</li></ul></div>
+    </div>
+  </section>
+
+  <section id="roles">
+    <div class="sec-head"><h2>Roles</h2><p>Permissions are enforced on the server for every page and API call, not only in the navigation.</p></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Role</th><th>Can</th></tr></thead>
+      <tbody>
+        <tr><td>Owner (product creator)</td><td>Everything a Super Admin can, plus plans, pricing, plan limits, monitoring intervals, analytics retention, feature availability and product settings</td></tr>
+        <tr><td>Super Admin</td><td>Clients and workspaces, subscriptions, usage, users, SMTP, email templates, system health, alert history, audit logs, maintenance mode</td></tr>
+        <tr><td>Workspace owner / admin</td><td>Their own websites, forms, domains, hosting, analytics, alerts, reports, team, billing and settings</td></tr>
+        <tr><td>Manager</td><td>Day-to-day monitoring work in the workspace; no team, billing or destructive settings</td></tr>
+        <tr><td>Viewer</td><td>Read-only access to the workspace</td></tr>
+        <tr><td>Notify-only</td><td>Receives alert emails, cannot log in</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="plans">
+    <div class="sec-head"><h2>Plans</h2><p>Configured by the Owner in the console; the public pricing page reads the same table. Prices in INR per month.</p></div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Included</th><th>Free</th><th>Starter</th><th>Professional</th><th>Business</th><th>Agency</th></tr></thead>
+      <tbody>
+        <tr><td>Price / month</td><td class="num">₹0</td><td class="num">₹499</td><td class="num">₹999</td><td class="num">₹2,499</td><td>Custom</td></tr>
+        <tr><td>Websites · pages · forms</td><td class="num">2 · 100 · 20</td><td class="num">10 · 500 · 100</td><td class="num">30 · 2,000 · 500</td><td class="num">100 · 10,000 · 2,000</td><td>Custom</td></tr>
+        <tr><td>Users · status pages</td><td class="num">1 · <span class="no">—</span></td><td class="num">3 · <span class="no">—</span></td><td class="num">10 · 1</td><td class="num">25 · 5</td><td class="num">Custom · 50</td></tr>
+        <tr><td>Website / form / SSL interval</td><td>60 min</td><td>30 min</td><td>10 min</td><td>5 / 5 / 10 min</td><td>5 min</td></tr>
+        <tr><td>Monitoring history</td><td>7 days</td><td>30 days</td><td>90 days</td><td>1 year</td><td>2 years</td></tr>
+        <tr><td>Analytics</td><td>Basic · country</td><td>Basic · region · live</td><td>Full · city · live</td><td>Full · city · live · export</td><td>Full · city · live · export</td></tr>
+        <tr><td>Page views · events / month</td><td class="num">1,000 · 500</td><td class="num">25,000 · 10,000</td><td class="num">250,000 · 100,000</td><td class="num">2,000,000 · 1,000,000</td><td>Unlimited</td></tr>
+        <tr><td>Analytics retention</td><td>7 days</td><td>30 days</td><td>90 days</td><td>180 days</td><td>730 days</td></tr>
+        <tr><td>Reports</td><td class="no">—</td><td>Basic</td><td>Standard</td><td>Advanced</td><td>Advanced</td></tr>
+        <tr><td>API · webhooks</td><td class="no">—</td><td class="no">—</td><td>Read API</td><td><span class="yes">✓</span> read/write · webhooks</td><td><span class="yes">✓</span> read/write · webhooks</td></tr>
+        <tr><td>White-label status pages · custom domain · sender name</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td><span class="yes">✓</span></td><td><span class="yes">✓</span> + priority support</td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin-top:10px;color:var(--muted);font-size:.85rem">Every plan includes website, page, form and SSL monitoring, domain and hosting expiry reminders, automatic page and form discovery, popup and AJAX forms, CAPTCHA detection, failure and recovery alerts, team roles and client alert contacts.</p>
+  </section>
+
+  <section id="limits">
+    <div class="sec-head"><h2>What it does not do</h2></div>
+    <div class="limits">
+      <p><b>Domains and hosting</b> are expiry reminders on dates you record; there is no WHOIS or DNS lookup. <b>Location</b> is approximate and IP-based; the tracking script never asks the browser for precise location. <b>Analytics</b> reports engaged time from the pages a visitor leaves, not wall-clock session length, and counts "returning" visitors as visitor-days minus new devices. <b>Form email verification</b> needs an IMAP test mailbox; without one the test result reads "email delivery not verified".</p>
+    </div>
+  </section>
+
+  <footer><span>Outline Monitor · product map · reflects the application as built (v4.0)</span><span>Screens and addresses listed here exist in the product today.</span></footer>
+</div>
